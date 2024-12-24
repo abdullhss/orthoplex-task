@@ -17,12 +17,13 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const loginSchema = z.object({
     username: z.string().min(3).max(50 , "username must be at least 2 charachter "),
     password : z.string().min(8 , "password must be at least 8 charachter")
 })
-
 const page = () => {
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -32,8 +33,14 @@ const page = () => {
         },
       })
       function onSubmit(values: z.infer<typeof loginSchema>) {
-        console.log(values)
-      }
+        axios.post("/api/CheckUser", {username: values.username, password: values.password }).then((res)=>{
+            toast( res.data.message , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
+            console.log(res);
+        }).catch((error : any)=>{
+            toast( error.message , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
+            console.log(error);
+        }); 
+    }
   return (
     <div className=' flex flex-col items-center'>
         <Image alt="orthoplex logo" src={logo}/>
@@ -61,7 +68,7 @@ const page = () => {
                         <FormItem>
                             <FormLabel className=''>password</FormLabel>
                             <FormControl>
-                                <Input placeholder="password" {...field} />
+                                <Input type='password' placeholder="password" {...field} />
                             </FormControl>
                             <FormMessage/>
                         </FormItem>

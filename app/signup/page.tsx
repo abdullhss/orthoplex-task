@@ -16,9 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Input } from '@/components/ui/input'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const signupSchema = z.object({
-    username : z.string().email({message : "enter user name"}) ,
+    username: z.string().min(3).max(50 , "username must be at least 2 charachter "),
     password : z.string().min(8 , {message :"Password must be at least 8 characters"}),
     confirmPassword : z.string().min(8 , {message :"Password must be at least 8 characters"}),
 }).refine((data)=> data.password===data.confirmPassword , {message : "passwords dose not match" , path:["confirmPassword"]})
@@ -33,8 +35,15 @@ const page = () => {
           confirmPassword :"" ,
         },
       })
+
       function onSubmit(values: z.infer<typeof signupSchema>) {
-        console.log(values)
+        axios.post('/api/CreateUser' ,  {username: values.username, password: values.password }).then((res)=>{
+            toast("User Crted !" , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
+            console.log("userCreate");
+        }).catch((error)=>{
+            toast( error , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
+            console.log(error);
+        })
       }
   return (
     <div className=' flex flex-col items-center'>
@@ -63,7 +72,7 @@ const page = () => {
                         <FormItem>
                             <FormLabel className=''>password</FormLabel>
                             <FormControl>
-                                <Input placeholder="password" {...field} />
+                                <Input type='password' placeholder="password" {...field} />
                             </FormControl>
                             <FormMessage/>
                         </FormItem>
@@ -76,7 +85,7 @@ const page = () => {
                         <FormItem>
                             <FormLabel className=''>confirm password</FormLabel>
                             <FormControl>
-                                <Input placeholder="confirm Password" {...field} />
+                                <Input type='password' placeholder="confirm Password" {...field} />
                             </FormControl>
                             <FormMessage/>
                         </FormItem>
