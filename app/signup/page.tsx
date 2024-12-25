@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useReducer } from 'react'
 import logo from "@/public/orthoplex logo.webp"
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
@@ -18,6 +18,7 @@ import { z } from "zod"
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import appReducer from '../reducers/appReducer'
 
 const signupSchema = z.object({
     username: z.string().min(3).max(50 , "username must be at least 2 charachter "),
@@ -27,6 +28,8 @@ const signupSchema = z.object({
 
 
 const page = () => {
+    const [create , dispatch] = useReducer(appReducer , {});
+    
     const form = useForm<z.infer<typeof signupSchema>>({
         resolver: zodResolver(signupSchema),
         defaultValues: {
@@ -37,18 +40,12 @@ const page = () => {
       })
 
       function onSubmit(values: z.infer<typeof signupSchema>) {
-        axios.post('/api/CreateUser' ,  {username: values.username, password: values.password }).then((res)=>{
-            toast("User Crted !" , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
-            console.log("userCreate");
-        }).catch((error)=>{
-            toast( error , {position : "top-right" , autoClose : 3000 ,hideProgressBar:false})
-            console.log(error);
-        })
+        dispatch({type : "create" , payload : {values}})
       }
   return (
-    <div className=' flex flex-col items-center'>
+    <div className=' flex flex-col items-center gap-6 min-h-screen mt-10 '>
         <Image alt="orthoplex logo" src={logo}/>
-        <div className='w-[90%] md:w-[30%] text-white'>
+        <div className='w-[90%] md:w-[40%] text-white'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 items-center">
                     <h2 className='text-2xl'>create new account</h2>
@@ -56,7 +53,7 @@ const page = () => {
                     control={form.control}
                     name="username"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='w-[50%]'>
                             <FormLabel className=''>Username</FormLabel>
                             <FormControl>
                                 <Input placeholder="user name" {...field} />
@@ -69,7 +66,7 @@ const page = () => {
                     control={form.control}
                     name="password"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='w-[50%]'>
                             <FormLabel className=''>password</FormLabel>
                             <FormControl>
                                 <Input type='password' placeholder="password" {...field} />
@@ -82,7 +79,7 @@ const page = () => {
                     control={form.control}
                     name="confirmPassword"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='w-[50%]'>
                             <FormLabel className=''>confirm password</FormLabel>
                             <FormControl>
                                 <Input type='password' placeholder="confirm Password" {...field} />
@@ -91,7 +88,7 @@ const page = () => {
                         </FormItem>
                     )}
                     />
-                    <Button className='shadow-md shadow-slate-700 hover:bg-white hover:text-black duration-200' type="submit">Submit</Button>
+                    <Button className='shadow-md shadow-slate-700 hover:bg-white hover:text-black duration-200 px-10 py-5' type="submit">Submit</Button>
                 </form>
             </Form>
         </div>

@@ -18,8 +18,11 @@ export async function POST(req : Request) {
             if (user.password != param.password) {
                 return new Response(JSON.stringify({ message: 'Invalid password' }), { status: 401 });
             }
-            console.log("test");
+
+
+            console.log("testttt");
             return new Response(JSON.stringify({ message: 'User Found', user }) ,{status : 200})    
+
         } catch (error) {
             return new Response("faild fetch user" , {status:500})
         }
