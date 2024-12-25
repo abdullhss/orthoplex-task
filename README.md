@@ -59,7 +59,3 @@ Open your browser and visit `http://localhost:3000` to see the project in action
 ## Contributing
 
 If you'd like to contribute to this project, feel free to open a **Pull Request** or submit **Issues** if you encounter any problems.
-
-## License
-
-This project is licensed under the [License Name] - see the [LICENSE](LICENSE) file for details.
