@@ -19,6 +19,8 @@ import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import appReducer from '../reducers/appReducer'
+import { motion } from 'framer-motion'
+
 
 const signupSchema = z.object({
     username: z.string().min(3).max(50 , "username must be at least 2 charachter "),
@@ -45,7 +47,11 @@ const page = () => {
   return (
     <div className=' flex flex-col items-center gap-6 min-h-screen mt-10 '>
         <Image alt="orthoplex logo" src={logo}/>
-        <div className='w-[90%] md:w-[40%] text-white'>
+        <motion.div
+            className='w-[90%] md:w-[40%] text-white'
+            initial={{ y: 30, opacity: 0 }} 
+            animate={{ y: 0, opacity: 1 }}  
+            transition={{ duration: 1, ease: "easeInOut" }} >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 items-center">
                     <h2 className='text-2xl'>create new account</h2>
@@ -88,10 +94,10 @@ const page = () => {
                         </FormItem>
                     )}
                     />
-                    <Button className='shadow-md shadow-slate-700 hover:bg-white hover:text-black duration-200 px-10 py-5' type="submit">Submit</Button>
+                    <Button className='shadow-md shadow-orange-700 hover:bg-white hover:text-black duration-200 px-10 py-5' type="submit">Submit</Button>
                 </form>
             </Form>
-        </div>
+        </motion.div>
     </div>
   )
 }

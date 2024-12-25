@@ -20,6 +20,7 @@ import Link from 'next/link'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import appReducer from '../reducers/appReducer'
+import { motion } from 'framer-motion'
 
 const loginSchema = z.object({
     username: z.string().min(3).max(50 , "username must be at least 2 charachter "),
@@ -43,7 +44,13 @@ const page = () => {
   return (
     <div className='flex flex-col items-center gap-6'>
         <Image alt="orthoplex logo" className='mt-10' src={logo}/>
-        <div className='w-[90%] md:w-[40%] text-white'>
+        
+        <motion.div
+          className='w-[90%] md:w-[40%] text-white'
+          initial={{ y: 30, opacity: 0 }} 
+          animate={{ y: 0, opacity: 1 }}  
+          transition={{ duration: 1, ease: "easeInOut" }} 
+        >
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 items-center">
                     <h2 className='text-2xl'>log in to your account</h2>
@@ -73,11 +80,11 @@ const page = () => {
                         </FormItem>
                     )}
                     />
-                        <Button className='shadow-md mt-6 shadow-slate-700 hover:bg-white hover:text-black duration-200 px-10 py-5' type="submit">Submit</Button>
+                        <Button className='shadow-md mt-6 shadow-orange-700 hover:bg-white hover:text-black duration-200 px-10 py-5' type="submit">Submit</Button>
                         <p className='mt-6'>have not account ? | <Link href={"/signup"}>sign up NOW !</Link> </p>
                 </form>
             </Form>
-        </div>
+        </motion.div>
     </div>
   )
 }

@@ -29,7 +29,7 @@ const NavBar = () => {
     window.location.href = "/"
   }
   return (
-    <div className='flex justify-between items-center px-4 md:px-12 py-2 shadow-md shadow-slate-700 bg-black'>
+    <div className='flex justify-between items-center px-4 md:px-12 py-2 shadow-lg shadow-slate-700 bg-black'>
         <div className='w-28 md:w-50 flex items-center'>
           <Link href={"/"}>
             <Image height={50} className='object-cover' alt='orthoplex logo' src={logo}/>
