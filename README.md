@@ -1,7 +1,8 @@
 
 # Orthoplex
 
-Description of the website or application you built. This project uses modern technologies to ensure high performance and a smooth user experience, utilizing React, Axios for API integration, and ShadCN for UI design.
+The Orthoplex task includes login and account creation. Once you log in, it will navigate you to the dashboard, and you can log out. It is built with high performance using the latest technologies such as useReducer, Context, and Axios to interact with the backend
+
 
 ## Technologies Used
 
