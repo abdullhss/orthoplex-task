@@ -9,6 +9,7 @@ Description of the website or application you built. This project uses modern te
 - **React Context & useReducer**: For state management.
 - **Axios**: For API integration.
 - **ShadCN**: UI library for user interface design.
+- **framer motion**: animation library for UI.
 - **High Performance**: Optimized performance with techniques.
 - **Loaders**: Used to enhance the user experience while data is loading.
 - **Unit testing**: Used to Test useReducer.
