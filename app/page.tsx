@@ -29,7 +29,7 @@ export default function Home() {
         isUserValid === null ? (
           <p className="text-white text-2xl flex justify-center mt-10">Loading...</p>
         ) : isUserValid ? (
-          <DashBord/>
+            <DashBord/>
         ) : (
           <Hero />
         )
